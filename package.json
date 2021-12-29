@@ -1,0 +1,21 @@
+{
+  "name": "crud-with-node-sequelize",
+  "version": "1.0.0",
+  "description": "Making and configuring a little users system with node and sequelize.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "saviorhavely",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.2",
+    "mysql2": "^2.3.3",
+    "sequelize": "^7.0.0-alpha.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
