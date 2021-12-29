@@ -4,13 +4,16 @@ const app = express();
 require("dotenv/config");
 
 const userRouter = require('./routes/userRouter.js');
+const authRouter = require('./routes/authRouter.js');
 
 app.get('/', (req, res) => {
     res.json({msg: "Bem vindo, aqui é o começo de tudo"})
 })
 
 app.use(express.json());
+
 app.use('/', userRouter)
+app.use('/', authRouter)
 
 // views staticas
 // app.get('/usuario/cadastro', (req, res) => {
