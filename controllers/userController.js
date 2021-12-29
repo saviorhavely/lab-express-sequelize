@@ -14,7 +14,7 @@ exports.createUser = async (req, res) => {
 
     await User.create(dataFiltered)
     .then(() => {
-        res.json({
+        res.status(200).json({
             status: "Cadastro realizado"
         })
     })
@@ -24,7 +24,9 @@ exports.createUser = async (req, res) => {
 }
 
 exports.getUsers = async (req, res) => {
+    let data = req.body;
+
     res.json({
-        text: 'lista de user'
+        data: data
     })
 }
