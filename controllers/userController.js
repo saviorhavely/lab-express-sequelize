@@ -24,9 +24,11 @@ exports.createUser = async (req, res) => {
 }
 
 exports.getUsers = async (req, res) => {
-    let data = req.body;
 
-    res.json({
-        data: data
+    const result = await User.findAll({
+        attributes: ['id', 'username', 'display_name', 'email']
     })
+
+    res.json(result)
 }
+
