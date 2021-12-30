@@ -32,3 +32,46 @@ exports.getUsers = async (req, res) => {
     res.json(result)
 }
 
+exports.updateUser = async (req, res) => {
+    
+    const {id} = req.body;
+    const data = req.body;
+
+    console.log(data)
+
+    delete data.id;
+    delete data.password;
+
+    const up = await User.update(data, {where: { id: id }})
+      .then(() => {
+        res.json({
+            error: false,
+            message: "dados atualizados com sucesso"
+        })
+      })
+      .catch(() => {
+        res.json({
+            error: true,
+            message: "dados não atualizados"
+        })
+      })
+}
+
+exports.deleteUser = async (req, res) => {
+    const {id} = req.body;
+
+    await User.destroy({where: { id: id }})
+    .then(() => {
+      res.json({
+          error: false,
+          message: "usuário deletado com sucesso"
+      })
+    })
+    .catch(() => {
+      res.json({
+          error: true,
+          message: "dados não atualizados"
+      })
+    })
+
+}
