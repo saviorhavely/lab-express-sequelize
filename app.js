@@ -1,16 +1,18 @@
-const express = require('express');
-const app = express();
+const express = require('express')
+const app = express()
 
-require("dotenv/config");
+require('dotenv/config')
 
-const userRouter = require('./routes/userRouter.js');
-const authRouter = require('./routes/authRouter.js');
+import './models/DB'
+
+const userRouter = require('./routes/userRouter.js')
+const authRouter = require('./routes/authRouter.js')
+
+app.use(express.json())
 
 app.get('/', (req, res) => {
-    res.json({msg: "Bem vindo, aqui é o começo de tudo"})
+	res.json({ msg: 'Bem vindo, aqui é o começo de tudo' })
 })
-
-app.use(express.json());
 
 app.use('/', userRouter)
 app.use('/', authRouter)
@@ -21,5 +23,5 @@ app.use('/', authRouter)
 // })
 
 app.listen(8080, () => {
-    console.log('Até aqui tudo certo!')
+	console.log('Até aqui tudo certo!')
 })

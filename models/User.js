@@ -1,34 +1,40 @@
-const DB = require('./DB.js')
-const Sequelize = require('sequelize')
+import { DataTypes, Model } from 'sequelize'
 
-const User = DB.define('users', {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
-    },
-    username: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
-    email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
-    password: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
-    display_name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
-})
+class User extends Model {
+	static init(sequelize) {
+		super.init(
+			{
+				id: {
+					type: DataTypes.INTEGER,
+					autoIncrement: true,
+					allowNull: false,
+					primaryKey: true,
+				},
+				username: {
+					type: DataTypes.STRING,
+					allowNull: false,
+				},
+				email: {
+					type: DataTypes.STRING,
+					allowNull: false,
+				},
+				password: {
+					type: DataTypes.STRING,
+					allowNull: false,
+				},
+				display_name: {
+					type: DataTypes.STRING,
+					allowNull: false,
+				},
+			},
+			{
+				sequelize,
+				modelName: 'users',
+			}
+		)
 
-//Criar a tabela
-// User.sync({
-//     force: true
-// });
+		// this.sync({ force: true })
+	}
+}
 
-module.exports = User;
+export default User

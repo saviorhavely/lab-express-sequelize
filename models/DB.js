@@ -1,16 +1,43 @@
-const Sequelize = require('sequelize');
+import Sequelize from 'sequelize'
+import User from './User'
+import Entry from './Entry'
 
-const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
-    host: process.env.DB_HOST,
-    dialect: process.env.DB_DIALECT
-});
+const models = [User, Entry]
 
-sequelize.authenticate()
-.then(() => {
-    console.log("Conexão com o banco de dados realizado com sucesso!");
-})
-.catch((e) => {
-    console.log("Erro: Conexão com o banco de dados não realizado com sucesso! Erro gerado: " + e);    
-})
+class Database {
+	constructor() {
+		this.init()
+	}
 
-module.exports = sequelize;
+	init() {
+		this.connection = new Sequelize({
+			host: process.env.DB_HOST,
+			dialect: process.env.DB_DIALECT,
+			database: process.env.DB_DATABASE,
+			username: process.env.DB_USERNAME,
+			password: process.env.DB_PASSWORD,
+			define: {
+				timestamp: true,
+				undescored: true,
+				undescoredAll: true,
+			},
+		})
+
+		models.map((model) => model.init(this.connection))
+
+		this.connectionCheck()
+	}
+
+	connectionCheck() {
+		this.connection
+			.authenticate()
+			.then(() => {
+				console.log('db:connected')
+			})
+			.catch((e) => {
+				console.log('db:not_connected' + e)
+			})
+	}
+}
+
+export default new Database()
